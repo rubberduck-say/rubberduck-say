@@ -18,7 +18,7 @@
     "debugging",
     "cowsay"
   ],
-  "author": "Seongyeol Son",
+  "author": "sonseongyeol",
   "license": "MIT",
   "dependencies": {
     "chalk": "^5.4.1",
