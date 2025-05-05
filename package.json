@@ -1,6 +1,6 @@
 {
   "name": "rubberduck-say",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A rubber duck that says things, like cowsay",
   "main": "index.js",
   "type": "module",
