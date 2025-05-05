@@ -1,20 +1,22 @@
 {
   "name": "ducksay",
   "version": "1.0.0",
+  "description": "A rubber duck that says things, like cowsay",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node ./bin/ducksay.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ducksay": "./index.js"
+    "ducksay": "./bin/ducksay.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "chalk": "^5.4.1",
+    "commander": "^13.1.0",
     "wrap-ansi": "^9.0.0"
   }
 }
