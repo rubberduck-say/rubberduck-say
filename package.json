@@ -11,9 +11,15 @@
   "bin": {
     "ducksay": "./bin/ducksay.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "duck",
+    "ascii",
+    "cli",
+    "debugging",
+    "cowsay"
+  ],
+  "author": "Seongyeol Son",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
