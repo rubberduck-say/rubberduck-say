@@ -1,4 +1,4 @@
-# Ducksay
+# Ducksay 🦆
 
 `ducksay` is a simple CLI tool that prints an adorable rubber duck (🦆) with a speech bubble, similar to `cowsay`, but with a friendly rubber duck! The idea behind this tool comes from **rubber duck debugging**, a technique where explaining your code to a rubber duck helps you understand and solve problems. `ducksay` brings that same spirit of debugging to the command line, offering you a virtual rubber duck to assist with your coding challenges.
 
@@ -15,21 +15,73 @@ In the world of programming, **rubber duck debugging** is a well-known technique
 To use `ducksay`, simply run the following command in your terminal:
 
 ```bash
-# If no message is provided, a random default message will be shown.
+# Basic usage with a custom message
 ducksay --message "Your message here!"
 
-# random message
+# With color option
+ducksay --color green --message "Stay positive!"
+
+# With language option
+ducksay --lang ko --message "디버깅 중~"
+
+# Show a random default message
 ducksay
 ```
 
-## Example
+## Options
+
+### `--message`, `-m`
+
+Specify the message to display in the speech bubble.
 
 ```bash
-ducksay --message "I need to debug this code!"
+ducksay -m "Debugging is fun!"
 ```
-This will output
+
+If omitted, a random message will be chosen.
+
+---
+
+### `--lang <lang>`
+
+Set the language of the default messages.
+
+- `en`: English (default)
+- `ko`: Korean
 
 ```bash
+ducksay --lang ko
+```
+
+---
+
+### `--color <color>`
+
+Set the color of the duck. Available colors:
+
+- `yellow` (default)
+- `green`
+- `blue`
+- `cyan`
+- `magenta`
+- `red`
+- `white`
+
+```bash
+ducksay --color cyan
+```
+
+If an unsupported color is entered, it will default to yellow.
+
+---
+
+## Example Output
+
+```bash
+ducksay --color green --message "I need to debug this code!"
+```
+
+```
   ______________________________________
  < I need to debug this code!           >
   --------------------------------------
@@ -39,12 +91,11 @@ This will output
           <(. )__
             (_(____)/
             `-----'
-
 ```
 
 ## Contributing
 
-This is a basic version of ducksay, and there's always room for improvement! If you'd like to contribute, feel free to submit a pull request. We welcome contributions that make this tool more fun and helpful for developers.
+This is a basic version of `ducksay`, and there's always room for improvement! If you'd like to contribute, feel free to submit a pull request. We welcome contributions that make this tool more fun and helpful for developers.
 
 PRs are always welcome!
 
