@@ -7,28 +7,54 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// __dirname
+// Get __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CLI option
+// CLI options
 program
   .version("1.0.0")
-  .option("-m, --message <message>", "메시지 입력")
-  .option("--lang <lang>", "언어 설정 (ko | en)", "en")
+  .option(
+    "--color <color>",
+    "Duck color (yellow, green, blue, cyan, magenta, red, white)",
+    "yellow"
+  )
+  .option("--lang <lang>", "Language setting (ko | en)", "en")
+  .option("-m, --message <message>", "Custom message")
   .parse(process.argv);
 
 const options = program.opts();
+const color = options.color; // ✅ Declare color
 const rawLang = options.lang;
 const isValidLang = ["ko", "en"].includes(rawLang);
 const lang = isValidLang ? rawLang : "en";
 
+// Warn if unsupported language
 if (!isValidLang) {
   console.warn(
-    `Unsupported language code '${rawLang}'  '${lang}'Replace with.`
+    `⚠️  Unsupported language code '${rawLang}'. Falling back to '${lang}'.`
   );
 }
 
+// Validate duck color
+const validColors = [
+  "yellow",
+  "green",
+  "blue",
+  "cyan",
+  "magenta",
+  "red",
+  "white",
+];
+
+let duckColor = "yellow";
+if (typeof color === "string" && validColors.includes(color)) {
+  duckColor = color;
+} else if (color !== undefined) {
+  console.warn(`⚠️  Unsupported color '${color}'. Defaulting to 'yellow'.`);
+}
+
+// Load messages from i18n JSON file or fallback to defaults
 function loadMessages(lang) {
   try {
     const filePath = path.join(__dirname, "..", "i18n", `${lang}.json`);
@@ -36,9 +62,8 @@ function loadMessages(lang) {
     return JSON.parse(raw).messages;
   } catch (err) {
     console.warn(
-      `Unsupported language code '${rawLang}'  '${lang}'Replace with.`
+      `⚠️  Failed to load language file. Using default messages instead.`
     );
-
     return lang === "ko"
       ? [
           "꿱꿱",
@@ -57,13 +82,14 @@ function loadMessages(lang) {
   }
 }
 
-// choose a message
+// Choose the message
 const messages = loadMessages(lang);
 const message =
   options.message ||
   messages[Math.floor(Math.random() * messages.length)] ||
   "Quack!";
 
+// Word-wrapping function (multibyte-aware)
 const maxLineWidth = 40;
 function wrapTextByWidth(text, maxWidth) {
   const lines = [];
@@ -88,7 +114,7 @@ function wrapTextByWidth(text, maxWidth) {
 
 const lines = wrapTextByWidth(message, maxLineWidth);
 
-// create speech bubble
+// Create speech bubble
 const borderTop = `  ${"_".repeat(maxLineWidth + 2)}`;
 const borderBottom = `  ${"-".repeat(maxLineWidth + 2)}`;
 const balloon = lines
@@ -100,8 +126,8 @@ const balloon = lines
   })
   .join("\n");
 
-// create duck
-const duck = chalk.yellow(`
+// Create duck ASCII art with color
+const duck = chalk[duckColor](`
       \\
        \\
             _
@@ -110,4 +136,5 @@ const duck = chalk.yellow(`
             \`-----'
 `);
 
+// Output result
 console.log(`${borderTop}\n${balloon}\n${borderBottom}${duck}`);
